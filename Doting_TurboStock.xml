@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Doting_TurboStock>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Doting_TurboStock>
+    </modules>
+</config>

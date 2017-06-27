@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <Doting_TurboStock>
+            <version>1.0</version>
+        </Doting_TurboStock>
+    </modules>
+
+    <frontend>
+        <routers>
+            <turbostock>
+                <use>standard</use>
+                <args>
+                    <module>Doting_TurboStock</module>
+                    <frontName>TurboStock</frontName>
+                </args>
+            </turbostock>
+        </routers>
+    </frontend>
+
+    <global>
+        <models>
+            <catalog>
+                <rewrite>
+                    <product_type_configurable>Doting_TurboStock_Model_Product_Configurable</product_type_configurable>
+                </rewrite>
+            </catalog>
+            <turbostock>
+                <class>Doting_TurboStock_Model</class>
+            </turbostock>
+        </models>
+        <helpers>
+            <turbostock>
+                <class>Doting_TurboStock_Helper</class>
+            </turbostock>
+        </helpers>
+        <events>
+            <cataloginventory_stock_item_save_commit_after>
+                <observers>
+                    <turbostock>
+                        <class>turbostock/observer</class>
+                        <method>catalogInventorySave</method>
+                    </turbostock>
+                </observers>
+            </cataloginventory_stock_item_save_commit_after>
+
+            <sales_model_service_quote_submit_success>
+                <observers>
+                    <turbostock>
+                        <class>turbostock/observer</class>
+                        <method>subtractQuoteInventory</method>
+                    </turbostock>
+                </observers>
+            </sales_model_service_quote_submit_success>
+
+            <!-- <sales_model_service_quote_submit_before>
+                <observers>
+                    <turbostock>
+                        <class>turbostock/observer</class>
+                        <method>subtractQuoteInventory</method>
+                    </turbostock>
+                </observers>
+            </sales_model_service_quote_submit_before> -->
+            <!-- <sales_model_service_quote_submit_failure>
+                <observers>
+                    <turbostock>
+                        <class>turbostock/observer</class>
+                        <method>revertQuoteInventory</method>
+                    </turbostock>
+                </observers>
+            </sales_model_service_quote_submit_failure> -->
+            <!-- <sales_order_item_cancel>
+                <observers>
+                    <turbostock>
+                        <class>turbostock/observer</class>
+                        <method>cancelOrderItem</method>
+                    </turbostock>
+                </observers>
+            </sales_order_item_cancel>
+            <sales_order_creditmemo_save_after>
+                <observers>
+                    <turbostock>
+                        <class>turbostock/observer</class>
+                        <method>refundOrderInventory</method>
+                    </turbostock>
+                </observers>
+            </sales_order_creditmemo_save_after> -->
+        </events>
+        <!-- <events>
+            <sales_order_save_after>
+                <observers>
+                    <order_save_after>
+                        <class>TurboStock/OrderObserver</class>
+                        <method>onSaveAfter</method>
+                    </order_save_after>
+                </observers>
+            </sales_order_save_after>
+        </events> -->
+    </global>
+
+    <!-- <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <turbostock>
+                                            <title>Integração Pedidos Bling</title>
+                                        </turbostock>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml> -->
+</config>
